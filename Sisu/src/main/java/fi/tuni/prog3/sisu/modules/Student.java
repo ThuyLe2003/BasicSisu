@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Student {
     private final String firstName;
     private final String lastName;
-    private final int studentNumber;
+    private final String studentNumber;
     private final int startYear;
     private int gradYear;
     private String degree;
@@ -22,7 +22,7 @@ public class Student {
      * @param startYear start year of the Student.
      * @param gradYear target graduation year of the Student.
      */
-    public Student(String firstName, String lastName, int studentNumber, 
+    public Student(String firstName, String lastName, String studentNumber, 
             int startYear, int gradYear) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -31,7 +31,7 @@ public class Student {
         this.gradYear = gradYear;
     }
 
-    public Student(String firstName, String lastName, int studentNumber, 
+    public Student(String firstName, String lastName, String studentNumber, 
             int startYear, String degree) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +40,7 @@ public class Student {
         this.degree = degree;
     }
 
-    public Student(String firstName, String lastName, int studentNumber, 
+    public Student(String firstName, String lastName, String studentNumber, 
             int startYear, String degree, ArrayList<Course> curriculum) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,7 +70,7 @@ public class Student {
      * Returns the student number of the Student.
      * @return student number of the Student.
      */
-    public int getStudentNumber() {
+    public String getStudentNumber() {
         return studentNumber;
     }
 

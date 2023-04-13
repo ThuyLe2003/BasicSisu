@@ -35,6 +35,9 @@ public class GroupingModule extends DegreeModule {
             courses.add((Course)module);
         }
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

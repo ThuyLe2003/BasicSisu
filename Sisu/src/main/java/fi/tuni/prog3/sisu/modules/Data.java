@@ -103,13 +103,18 @@ public class Data implements Builder {
                     int degreeMinCredits = degreeObj
                             .getJSONObject("credits")
                             .getInt("min");
-                    String degreeId = degreeObj.getString("id");
-                    String degreeGroupId = degreeObj.getString("groupId");
-                    DegreeProgramme degreeProgramme = new DegreeProgramme(
-                            degreeName, degreeId, 
-                            degreeGroupId, degreeMinCredits
-                    );
-                    degrees.put(degreeId, degreeProgramme); 
+                    if (degreeMinCredits != 0) {
+                        String degreeId = degreeObj.getString("id");
+                        String degreeGroupId = degreeObj
+                                .getString("groupId");
+                        DegreeProgramme degreeProgramme = new DegreeProgramme(
+                                degreeName, 
+                                degreeId, 
+                                degreeGroupId, 
+                                degreeMinCredits
+                        );
+                        degrees.put(degreeId, degreeProgramme);
+                    }
                 }
                 catch(JSONException e) {
                     // Invalid degree programme modules are ignored.
@@ -178,8 +183,8 @@ public class Data implements Builder {
     /**
      * Returns degree programmes. Return an empty container if Kori API 
      * http-request fails.
-     * @return a HashMap "degrees" with degree programmes of type DegreePogramme, 
-     * "degrees" is empty if data fetching fails.
+     * @return a HashMap "degrees" with DegreePogramme, "degrees" is empty if 
+     * data fetching fails.
      */
     public HashMap<String, DegreeProgramme> getDegrees() {
         setRequestAddresses();

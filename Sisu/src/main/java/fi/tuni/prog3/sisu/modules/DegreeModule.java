@@ -65,7 +65,7 @@ public abstract class DegreeModule {
     public String toString() {
         return name + " (" + minCredits + " credits)";
     }
-    
+
     /**
      * Abstract function to add module to the correct list
      */
