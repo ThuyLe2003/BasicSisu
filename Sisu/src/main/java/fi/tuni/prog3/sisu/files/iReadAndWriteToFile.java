@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package fi.tuni.prog3.sisu;
+package fi.tuni.prog3.sisu.files;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

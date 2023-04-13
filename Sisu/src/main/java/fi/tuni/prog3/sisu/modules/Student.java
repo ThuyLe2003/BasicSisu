@@ -1,4 +1,4 @@
-package fi.tuni.prog3.sisu;
+package fi.tuni.prog3.sisu.modules;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,7 @@ public class Student {
     private final int studentNumber;
     private final int startYear;
     private int gradYear;
+    private String degree;
     private ArrayList<Course> curriculum;
 
     /**
@@ -28,6 +29,25 @@ public class Student {
         this.studentNumber = studentNumber;
         this.startYear = startYear;
         this.gradYear = gradYear;
+    }
+
+    public Student(String firstName, String lastName, int studentNumber, 
+            int startYear, String degree) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.studentNumber = studentNumber;
+        this.startYear = startYear;
+        this.degree = degree;
+    }
+
+    public Student(String firstName, String lastName, int studentNumber, 
+            int startYear, String degree, ArrayList<Course> curriculum) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.studentNumber = studentNumber;
+        this.startYear = startYear;
+        this.degree = degree;
+        this.curriculum = curriculum;
     }
 
     /**
@@ -78,6 +98,10 @@ public class Student {
         return curriculum;
     }
 
+    public String getDegree() {
+        return degree;
+    }
+
     /**
      * Set the target graduation year of the Student.
      * @param year new target graduation year of the Student.
@@ -117,5 +141,31 @@ public class Student {
                 return;
             }
         }
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+    
+    /**
+     * Returns true if the student has set a degree programme, otherwise false
+     * @return true if the student has set a degree programme, otherwise false
+     */
+    public boolean isDegreeSet() {
+        return degree.length() > 0;
+    }
+    
+    /**
+     * Returns completed courses.
+     * @return completed courses.
+     */
+    public ArrayList<Course> getCompletedCourses() {
+        ArrayList<Course> completedCourses = new ArrayList<>();
+        for (Course course : curriculum) {
+            if (course.isCompleted()) {
+                completedCourses.add(course);
+            }
+        }
+        return completedCourses;
     }
 }

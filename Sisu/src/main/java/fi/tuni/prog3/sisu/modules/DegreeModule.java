@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package fi.tuni.prog3.sisu;
+package fi.tuni.prog3.sisu.modules;
 
 /**
  * An abstract class for storing information on Modules and Courses.
@@ -60,4 +56,18 @@ public abstract class DegreeModule {
     public int getMinCredits() {
         return this.minCredits;
     }
+
+    /**
+     * Return the name and minimum credits of the Module or Course.
+     * @return the name and minimum credits of the Module or Course.
+     */
+    @Override
+    public String toString() {
+        return name + " (" + minCredits + " credits)";
+    }
+    
+    /**
+     * Abstract function to add module to the correct list
+     */
+    abstract void addItem(DegreeModule module);
 }
