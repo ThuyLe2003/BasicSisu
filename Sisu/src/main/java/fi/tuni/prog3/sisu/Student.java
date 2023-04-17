@@ -1,9 +1,10 @@
-package fi.tuni.prog3.sisu.modules;
+package fi.tuni.prog3.sisu;
 
+import fi.tuni.prog3.sisu.modules.Course;
 import java.util.ArrayList;
 
 /**
- * A class for storing information on Students
+ * A class for storing information on Students.
  */
 public class Student {
     private final String firstName;
@@ -31,6 +32,14 @@ public class Student {
         this.gradYear = gradYear;
     }
 
+    /**
+     * Constructs a student with given information.
+     * @param firstName first name of the Student.
+     * @param lastName last name of the Student.
+     * @param studentNumber student number.
+     * @param startYear start year of the Student.
+     * @param degree the degree programme of the Student.
+     */
     public Student(String firstName, String lastName, String studentNumber, 
             int startYear, String degree) {
         this.firstName = firstName;
@@ -40,6 +49,15 @@ public class Student {
         this.degree = degree;
     }
 
+    /**
+     * Constructs a student with given information.
+     * @param firstName first name of the Student.
+     * @param lastName last name of the Student.
+     * @param studentNumber student number.
+     * @param startYear start year of the Student.
+     * @param degree the degree programme of the Student.
+     * @param curriculum the curriculum (progress) of the Student.
+     */
     public Student(String firstName, String lastName, String studentNumber, 
             int startYear, String degree, ArrayList<Course> curriculum) {
         this.firstName = firstName;
@@ -52,7 +70,7 @@ public class Student {
 
     /**
      * Returns the first name of the Student.
-     * @return first name of the Student
+     * @return first name of the Student.
      */
     public String getFirstName() {
         return firstName;
@@ -76,7 +94,7 @@ public class Student {
 
     /**
      * Returns the start year of the Student.
-     * @return start year of the Student
+     * @return start year of the Student.
      */
     public int getStartYear() {
         return startYear;
@@ -84,7 +102,7 @@ public class Student {
 
     /**
      * Returns the target graduation year of the Student.
-     * @return 
+     * @return the target graduation year of the Student.
      */
     public int getGradYear() {
         return gradYear;
@@ -92,18 +110,22 @@ public class Student {
 
     /**
      * Returns the curriculum of the Student.
-     * @return curriculum of the Student.
+     * @return the curriculum of the Student.
      */
     public ArrayList<Course> getCurriculum() {
         return curriculum;
     }
 
+    /**
+     * Returns the degree of the Student.
+     * @return the degree of the Student.
+     */
     public String getDegree() {
         return degree;
     }
 
     /**
-     * Set the target graduation year of the Student.
+     * Sets the target graduation year of the Student.
      * @param year new target graduation year of the Student.
      * @return true if the new graduation year is set, false when the new target 
      * year is smaller than the start year of the Student.
@@ -117,7 +139,7 @@ public class Student {
     }
     
     /**
-     * Add new course to the curriculum of the Student.
+     * Adds new course to the curriculum of the Student.
      * @param course new course to be added.
      * @return true of new course is added, false if the course is already in
      * the curriculum.
@@ -131,7 +153,7 @@ public class Student {
     }
     
     /**
-     * Change the state of a course.
+     * Changes the state of a course.
      * @param courseName the name of the course to be changed.
      */
     public void changeCourseState(String courseName) {
@@ -143,6 +165,10 @@ public class Student {
         }
     }
 
+    /**
+     * Sets the degree programme for the Student.
+     * @param degree the degree to be set.
+     */
     public void setDegree(String degree) {
         this.degree = degree;
     }

@@ -1,6 +1,10 @@
-package fi.tuni.prog3.sisu.modules;
+package fi.tuni.prog3.sisu.kori;
 
-import fi.tuni.prog3.sisu.kori.Builder;
+import fi.tuni.prog3.sisu.modules.Course;
+import fi.tuni.prog3.sisu.modules.DegreeModule;
+import fi.tuni.prog3.sisu.modules.DegreeProgramme;
+import fi.tuni.prog3.sisu.modules.GroupingModule;
+import fi.tuni.prog3.sisu.modules.StudyModule;
 import static fi.tuni.prog3.sisu.kori.Builder.getObjAtt;
 import static fi.tuni.prog3.sisu.kori.Builder.getObjName;
 
@@ -15,8 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * A class for storing data retrieved from Sisu API.
- * @author Admin
+ * A class for storing and processing data fetched from API.
  */
 public class Data implements Builder {
     private HashMap<String, String> requestURLs = new HashMap<>();
@@ -127,7 +130,7 @@ public class Data implements Builder {
     }
     
     /**
-     * Parses the data and updates the Degree Programme.
+     * Receives and parses the data and updates the Degree Programme.
      * @param response fetched data of the Degree Programme.
      * @param degree the Degree Programme to be parsed.
      */
@@ -141,48 +144,42 @@ public class Data implements Builder {
      * Parses rule attribute to read all the sub-modules and course units of 
      * the super module.
      * @param ruleObj JSONObject containing a possible sub-rule or multiple 
-     * rules. 
+     * rules.
      * @param module the DegreeModule whose rules are parsed.
      * @throws JSONException
      */
     private void parseRule(JSONObject ruleObj, DegreeModule module) 
             throws JSONException {
-        switch (ruleObj.getString("type")) {
-            case "ModuleRule":
-                String moduleData = fetchData("groupIdReq",
+        if (ruleObj.getString("type").equals("ModuleRule")) {
+            String moduleData = fetchData("groupIdReq",
                         ruleObj.getString("moduleGroupId")); 
-                if(!moduleData.equals("")) {
-                    parseModuleData(module, moduleData);
-                }
-                break;
-            case "CourseUnitRule":
-                String courseData = fetchData("courseReq",
+            if(!moduleData.equals("")) {
+                parseModuleData(module, moduleData);
+            }
+        } else if (ruleObj.getString("type")
+                .equals("CourseUnitRule")) {
+            String courseData = fetchData("courseReq",
                         ruleObj.getString("courseUnitGroupId"));
-                if(!courseData.equals("")) {
-                    parseCourseData(module, courseData);
+            if(!courseData.equals("")) {
+                parseCourseData(module, courseData);
+            }
+        } else {
+            JSONArray rules = getRules(ruleObj);
+            if(rules.isEmpty()) {
+                if(!getRule(ruleObj).isEmpty()) {
+                    parseRule(getRule(ruleObj), module);
+                }     
+            } else {
+                for(int i = 0; i < rules.length(); i++) {   
+                    JSONObject newRuleObj = rules.getJSONObject(i);
+                    parseRule(newRuleObj, module);
                 }
-                break;
-            default:
-                JSONArray rules = getRules(ruleObj);
-                if(rules.isEmpty()) {
-                    if(!getRule(ruleObj).isEmpty()) {
-                        parseRule(getRule(ruleObj), module);
-                    }
-                    
-                }
-                else {
-                    for(int i = 0; i < rules.length(); i++) {   
-                        JSONObject newRuleObj = rules.getJSONObject(i);
-                        parseRule(newRuleObj, module);
-                    }
-                }
-                break;
+            }
         }
     }
     
     /**
-     * Returns degree programmes. Return an empty container if Kori API 
-     * http-request fails.
+     * Returns degree programmes fetched from the API.
      * @return a HashMap "degrees" with DegreePogramme, "degrees" is empty if 
      * data fetching fails.
      */
@@ -191,7 +188,7 @@ public class Data implements Builder {
         String data = fetchData("dataReq", "");
         if(!data.equals("")) {
             parseDegreesData(data);
-        }        
+        }
         return degrees;
     }
     
@@ -211,6 +208,12 @@ public class Data implements Builder {
         return degree;
     }
 
+    /**
+     * Receives and parses the fetched data to create new modules, then adds 
+     * them to the right list under the super module.
+     * @param module super module.
+     * @param moduleData fetched data for the modules under the super module.
+     */
     private void parseModuleData(DegreeModule module, String moduleData) {
         JSONArray modules = new JSONArray(moduleData);
         for (int i = 0; i < modules.length(); i++) {
@@ -221,35 +224,39 @@ public class Data implements Builder {
             var groupId = getObjAtt(moduleObj, "groupId");
             
             JSONObject ruleObj = moduleObj.getJSONObject("rule");
-            
-            switch (moduleObj.getString("type")) {
-                case "StudyModule":
-                    int minCredits = moduleObj
+
+            if ("StudyModule".equals(moduleObj.getString("type"))) {
+                int minCredits = moduleObj
                             .getJSONObject("targetCredits")
                             .getInt("min");
-                    StudyModule studyModule = new StudyModule(
+                StudyModule studyModule = new StudyModule(
                             name, 
                             id, 
                             groupId, 
                             minCredits
-                    );
-                    module.addItem(studyModule);
-                    parseRule(ruleObj, studyModule);
-                case "GroupingModule":
-                    GroupingModule groupingModule = new GroupingModule(
+                );
+                module.addItem(studyModule);
+                parseRule(ruleObj, studyModule);
+            } else if ("GroupingModule".equals(moduleObj
+                    .getString("type"))) {
+                GroupingModule groupingModule = new GroupingModule(
                             name,
                             id,
                             groupId,
                             0
-                    );
-                    module.addItem(groupingModule);
-                    parseRule(ruleObj, groupingModule);
-                
-                    
+                );
+                module.addItem(groupingModule);
+                parseRule(ruleObj, groupingModule);
             }
         }
     }
 
+    /**
+     * Receives and parses data of the courses and adds them to the super 
+     * module.
+     * @param module super module.
+     * @param courseData fetched data for the courses under the super module.
+     */
     private void parseCourseData(DegreeModule module, String courseData) {
         JSONArray courses = new JSONArray(courseData);
         for (int i = 0; i < courses.length(); i++) {
@@ -270,7 +277,7 @@ public class Data implements Builder {
 
     /**
      * Searches a list of rules recursively and returns the first encountered 
-     * list of rules, which is empty if no such list is found.
+     * list of rules.
      * @param ruleObj the given rule of JSONObject type.
      * @return JSONArray type "rules" including possible module and course 
      * unit rules. "Rules" is empty, if no such list is found.
@@ -288,8 +295,7 @@ public class Data implements Builder {
 
     /**
      * Searches a rule of either type "ModuleRule" or "CourseUnitRule" 
-     * recursively and returns the first encountered valid rule. Otherwise 
-     * returns an empty rule object.
+     * recursively and returns the first encountered valid rule.
      * @param ruleContents the given rule of JSONObject type.
      * @return JSONObject type "rule", which either represents a "ModuleRule"
      * or "CourseUnitRule". "Rule" is empty, if no valid rule is found.

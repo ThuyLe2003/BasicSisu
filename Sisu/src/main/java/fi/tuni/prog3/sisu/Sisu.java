@@ -1,5 +1,9 @@
 package fi.tuni.prog3.sisu;
 
+import fi.tuni.prog3.sisu.modules.Course;
+import fi.tuni.prog3.sisu.kori.Data;
+import fi.tuni.prog3.sisu.modules.DegreeModule;
+import fi.tuni.prog3.sisu.modules.DegreeProgramme;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -43,6 +47,28 @@ public class Sisu extends Application {
 
     public static void main(String[] args) {
         launch();
+        Data sisu = new Data();
+        DegreeProgramme degree = sisu.getDegree(sisu
+                .getDegrees()
+                .get("otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb"));
+        System.out.println(degree.getChildren());
+        getSubModule(degree);
+        
+        
+    }
+    
+    private static void getSubModule(DegreeModule module) {
+        if (module instanceof Course) {
+            
+        } else {
+            module.getChildren().forEach((var child) -> {
+                child.forEach(childOfChild -> {
+                    System.out.println(childOfChild);
+                    getSubModule(childOfChild);
+                });
+            
+            });
+        }
     }
     
     private HBox getCenterHbox() {

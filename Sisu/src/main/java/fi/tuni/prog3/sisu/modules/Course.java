@@ -1,7 +1,7 @@
 package fi.tuni.prog3.sisu.modules;
 
 /**
- * A class for storing information on Courses
+ * A class for storing information on Courses.
  */
 public class Course extends DegreeModule {
     private boolean completedState;
@@ -24,26 +24,36 @@ public class Course extends DegreeModule {
     }
 
     /**
-     * Return the progress of the course.
+     * Returns the progress of the course.
      * @return true if the course is finished, false otherwise.
      */
     public boolean isCompleted() {
         return completedState;
     }
-
+    
     /**
-     * Change the state of the course
+     * Returns the code of the course.
+     * @return the code of the course.
+     */
+    public String getCode() {
+        return code;
+    }
+    
+    /**
+     * Changes the state of the course.
      */
     public void changeState() {
         completedState = !completedState;
     }
 
+    /**
+     * Throws exception as nothing can be added to a course.
+     * @param module the module to be added, the type can be either StudyModule,
+     * GroupingModule or Course.
+     * @throws UnsupportedOperationException
+     */
     @Override
-    void addItem(DegreeModule module) {
+    public void addItem(DegreeModule module) {
         throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public String getCode() {
-        return code;
     }
 }
