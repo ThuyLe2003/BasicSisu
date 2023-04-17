@@ -1,19 +1,33 @@
 package fi.tuni.prog3.sisu;
 
-import fi.tuni.prog3.sisu.modules.Course;
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import fi.tuni.prog3.sisu.files.iReadAndWriteToFile;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.TreeSet;
 
 /**
  * A class for storing information on Students.
  */
 public class Student {
-    private final String firstName;
-    private final String lastName;
-    private final String studentNumber;
-    private final int startYear;
+    private String firstName;
+    private String lastName;
+    private String studentNumber;
+    private int startYear;
     private int gradYear;
     private String degree;
-    private ArrayList<Course> curriculum;
+    private TreeSet<String> completedCourses = new TreeSet<>();
+
+    /**
+     * Constructs an empty Student object.
+     */
+    public Student() {
+    }
 
     /**
      * Constructs a student with given information.
@@ -38,14 +52,16 @@ public class Student {
      * @param lastName last name of the Student.
      * @param studentNumber student number.
      * @param startYear start year of the Student.
+     * @param gradYear target graduation year of the Student.
      * @param degree the degree programme of the Student.
      */
     public Student(String firstName, String lastName, String studentNumber, 
-            int startYear, String degree) {
+            int startYear, int gradYear, String degree) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
         this.startYear = startYear;
+        this.gradYear = gradYear;
         this.degree = degree;
     }
 
@@ -55,17 +71,20 @@ public class Student {
      * @param lastName last name of the Student.
      * @param studentNumber student number.
      * @param startYear start year of the Student.
+     * @param gradYear target graduation year of the Student.
      * @param degree the degree programme of the Student.
-     * @param curriculum the curriculum (progress) of the Student.
+     * @param completedCourses list of courses completed by the Student.
      */
     public Student(String firstName, String lastName, String studentNumber, 
-            int startYear, String degree, ArrayList<Course> curriculum) {
+            int startYear, int gradYear, String degree, 
+            TreeSet<String> completedCourses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
         this.startYear = startYear;
+        this.gradYear = gradYear;
         this.degree = degree;
-        this.curriculum = curriculum;
+        this.completedCourses = completedCourses;
     }
 
     /**
@@ -109,14 +128,6 @@ public class Student {
     }
 
     /**
-     * Returns the curriculum of the Student.
-     * @return the curriculum of the Student.
-     */
-    public ArrayList<Course> getCurriculum() {
-        return curriculum;
-    }
-
-    /**
      * Returns the degree of the Student.
      * @return the degree of the Student.
      */
@@ -124,6 +135,14 @@ public class Student {
         return degree;
     }
 
+    /**
+     * Returns the sets of ids of completed courses of the Student.
+     * @return the sets of ids of completed courses of the Student.
+     */
+    public TreeSet<String> getCompletedCourses() {
+        return completedCourses;
+    }
+    
     /**
      * Sets the target graduation year of the Student.
      * @param year new target graduation year of the Student.
@@ -140,29 +159,18 @@ public class Student {
     
     /**
      * Adds new course to the curriculum of the Student.
-     * @param course new course to be added.
-     * @return true of new course is added, false if the course is already in
-     * the curriculum.
+     * @param courseId id of the new course to be added.
      */
-    public boolean addCourse(Course course) {
-        if (curriculum.contains(course)) {
-            return false;
-        }
-        curriculum.add(course);
-        return true;
+    public void addCompletedCourse(String courseId) {
+        completedCourses.add(courseId);
     }
     
     /**
-     * Changes the state of a course.
-     * @param courseName the name of the course to be changed.
+     * Adds new course to the curriculum of the Student.
+     * @param coursesId sets of ids of courses to be added.
      */
-    public void changeCourseState(String courseName) {
-        for (int i = 0; i < curriculum.size(); ++i) {
-            if (curriculum.get(i).getName().equals(courseName)) {
-                curriculum.get(i).changeState();
-                return;
-            }
-        }
+    public void addCompletedCourse(TreeSet<String> coursesId) {
+        completedCourses = coursesId;
     }
 
     /**
@@ -180,18 +188,62 @@ public class Student {
     public boolean isDegreeSet() {
         return degree.length() > 0;
     }
-    
+
     /**
-     * Returns completed courses.
-     * @return completed courses.
+     * Reads JSON from the given file.
+     * @param fileName name of the file to read from.
+     * @throws IOException if the method e.g, cannot find the file. 
      */
-    public ArrayList<Course> getCompletedCourses() {
-        ArrayList<Course> completedCourses = new ArrayList<>();
-        for (Course course : curriculum) {
-            if (course.isCompleted()) {
-                completedCourses.add(course);
+    public void readFromFile(String fileName) throws IOException {
+        Gson gson = new Gson();
+        JsonObject dataSet = gson.fromJson(new FileReader(fileName + ".json"), 
+                JsonObject.class);
+        firstName = dataSet.get("firstName").getAsString();
+        lastName = dataSet.get("lastName").getAsString();
+        studentNumber = dataSet.get("studentNumber").getAsString();
+        startYear = dataSet.get("startYear").getAsInt();
+        gradYear = dataSet.get("gradYear").getAsInt();
+        degree = dataSet.get("degree").getAsString();
+        
+        JsonArray courses = dataSet.getAsJsonArray("courses");
+        courses.forEach(course -> {
+            completedCourses.add(course.getAsString());
+        });
+    }
+
+    /**
+     * Write the student progress as JSON into the given file.
+     * @param fileName name of the file to write to.
+     * @return true if the write was successful, otherwise false.
+     * @throws IOException if the method e.g., cannot write to a file.
+     */
+    public boolean writeToFile(String fileName) throws IOException {
+        try (FileWriter writer = new FileWriter(fileName + ".json")) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonObject jsonObj = new JsonObject();
+            jsonObj.addProperty("firstName", firstName);
+            jsonObj.addProperty("lastName", lastName);
+            jsonObj.addProperty("studentNumber", studentNumber);
+            jsonObj.addProperty("startYear", startYear);
+            jsonObj.addProperty("gradYear", gradYear);
+            jsonObj.addProperty("degree", degree);
+            
+            if (!completedCourses.isEmpty()) {
+                JsonArray courses = new JsonArray();
+                
+                completedCourses.forEach(course -> {
+                    courses.add(course);
+                });
+                
+                jsonObj.add("courses", courses);
+            } else {
+                jsonObj.add("courses", null);
             }
+            gson.toJson(jsonObj, writer);
+            return true;
+        } 
+        catch (IOException e) {
+            return false;
         }
-        return completedCourses;
     }
 }
