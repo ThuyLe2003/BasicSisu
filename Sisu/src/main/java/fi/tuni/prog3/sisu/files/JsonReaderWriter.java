@@ -2,12 +2,10 @@ package fi.tuni.prog3.sisu.files;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import fi.tuni.prog3.sisu.modules.Course;
 import fi.tuni.prog3.sisu.modules.Student;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.ProcessBuilder.Redirect.Type;
-import java.util.ArrayList;
 
 public class JsonReaderWriter{
     /**
@@ -36,14 +34,6 @@ public class JsonReaderWriter{
         System.out.println(student);
         return student;
         
-        //String degree = String.valueOf(root.getAsJsonPrimitive("degree"));
-        
-     
-        
-
-       
-
-       // return new Student("Testy", "Tester", "K0000", 2000, 2100);
     }
     
         public class StudentAdapter implements JsonSerializer<Student> {
@@ -68,21 +58,15 @@ public class JsonReaderWriter{
             }
 
     
-    public boolean writeToFile(String fileName) throws Exception {
-        ArrayList<Course> test = new ArrayList<>();
-        test.add(new Course("Course", "testId", "testGroupId", 4, "TestCode"));
-        Student testStudent = new Student("Testy", "Tester", "K0000", 2000, 2100);//, "Testy´s degree", test);
-        Student testStudent2 = new Student("Testy2", "Teste3r", "K00400", 2000, 2100);//, "Testy´s degree", test);
+    public boolean writeToFile(Student student) throws Exception {
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, 
                 new StudentAdapter()).setPrettyPrinting().create();
 
-        gson.toJson(testStudent);
+        gson.toJson(student);
 
-           try (FileWriter fw = new FileWriter("students\\" + fileName + ".json")) {
-            gson.toJson(testStudent, fw);
-            System.out.println("test");
-            gson.toJson(testStudent2, fw);
+           try (FileWriter fw = new FileWriter("students\\" + student.getStudentNumber() + ".json")) {
+            gson.toJson(student, fw);
         }  
 
 
