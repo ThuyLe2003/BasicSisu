@@ -1,14 +1,5 @@
 package fi.tuni.prog3.sisu;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import fi.tuni.prog3.sisu.files.iReadAndWriteToFile;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.TreeSet;
 
 /**
@@ -187,63 +178,5 @@ public class Student {
      */
     public boolean isDegreeSet() {
         return degree.length() > 0;
-    }
-
-    /**
-     * Reads JSON from the given file.
-     * @param fileName name of the file to read from.
-     * @throws IOException if the method e.g, cannot find the file. 
-     */
-    public void readFromFile(String fileName) throws IOException {
-        Gson gson = new Gson();
-        JsonObject dataSet = gson.fromJson(new FileReader(fileName + ".json"), 
-                JsonObject.class);
-        firstName = dataSet.get("firstName").getAsString();
-        lastName = dataSet.get("lastName").getAsString();
-        studentNumber = dataSet.get("studentNumber").getAsString();
-        startYear = dataSet.get("startYear").getAsInt();
-        gradYear = dataSet.get("gradYear").getAsInt();
-        degree = dataSet.get("degree").getAsString();
-        
-        JsonArray courses = dataSet.getAsJsonArray("courses");
-        courses.forEach(course -> {
-            completedCourses.add(course.getAsString());
-        });
-    }
-
-    /**
-     * Write the student progress as JSON into the given file.
-     * @param fileName name of the file to write to.
-     * @return true if the write was successful, otherwise false.
-     * @throws IOException if the method e.g., cannot write to a file.
-     */
-    public boolean writeToFile(String fileName) throws IOException {
-        try (FileWriter writer = new FileWriter(fileName + ".json")) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonObject jsonObj = new JsonObject();
-            jsonObj.addProperty("firstName", firstName);
-            jsonObj.addProperty("lastName", lastName);
-            jsonObj.addProperty("studentNumber", studentNumber);
-            jsonObj.addProperty("startYear", startYear);
-            jsonObj.addProperty("gradYear", gradYear);
-            jsonObj.addProperty("degree", degree);
-            
-            if (!completedCourses.isEmpty()) {
-                JsonArray courses = new JsonArray();
-                
-                completedCourses.forEach(course -> {
-                    courses.add(course);
-                });
-                
-                jsonObj.add("courses", courses);
-            } else {
-                jsonObj.add("courses", null);
-            }
-            gson.toJson(jsonObj, writer);
-            return true;
-        } 
-        catch (IOException e) {
-            return false;
-        }
     }
 }

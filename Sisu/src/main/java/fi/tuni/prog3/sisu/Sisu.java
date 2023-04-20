@@ -1,9 +1,5 @@
 package fi.tuni.prog3.sisu;
 
-import fi.tuni.prog3.sisu.modules.Course;
-import fi.tuni.prog3.sisu.kori.Data;
-import fi.tuni.prog3.sisu.modules.DegreeModule;
-import fi.tuni.prog3.sisu.modules.DegreeProgramme;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -48,44 +44,6 @@ public class Sisu extends Application {
 
     public static void main(String[] args) throws Exception {
         launch();
-        /*
-        Data sisu = new Data();
-        DegreeProgramme degree = sisu.getDegree(sisu
-                .getDegrees()
-                .get("otm-df83fbbd-f82d-4fda-b819-78f6b2077fcb"));
-        System.out.println(degree.getChildren());
-        
-        
-        student = new Student("Thuy", "Le", 
-                "150533634", 2021, 2024);
-        student.setDegree(degree.getId());
-        getSubModule(degree);
-        student.writeToFile(student.getStudentNumber());
-        
-        student.getCompletedCourses().forEach(course -> {
-            System.out.println(course);
-        }); */
-        
-        student = new Student();
-        student.readFromFile("150533634");
-        System.out.println(student.getFirstName());
-        System.out.println(student.getDegree());
-        student.getCompletedCourses().forEach(course -> {
-            System.out.println(course);
-        });
-    }
-    
-    private static void getSubModule(DegreeModule module) {
-        if (module instanceof Course) {
-            // student.addCompletedCourse(module.getId() + " " + module.getName());
-        } else {
-            module.getChildren().forEach((var child) -> {
-                child.forEach(childOfChild -> {
-                    System.out.println(childOfChild);
-                    getSubModule(childOfChild);
-                });
-            });
-        }
     }
     
     private HBox getCenterHbox() {
