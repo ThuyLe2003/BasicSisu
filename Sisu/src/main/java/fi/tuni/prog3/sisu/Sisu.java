@@ -18,6 +18,7 @@ import javafx.stage.Stage;
  * JavaFX Sisu
  */
 public class Sisu extends Application {
+    private static Student student;
 
     @Override
     public void start(Stage stage) {
@@ -41,7 +42,7 @@ public class Sisu extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         launch();
     }
     

@@ -1,5 +1,7 @@
 package fi.tuni.prog3.sisu.modules;
 
+import java.util.ArrayList;
+
 /**
  * An abstract class for storing information on Modules and Courses.
  */
@@ -8,6 +10,7 @@ public abstract class DegreeModule {
     private String id;
     private String groupId;
     private int minCredits;
+    private ArrayList<Course> courses = new ArrayList<>();
     
     /**
      * A constructor for initializing the member variables.
@@ -67,7 +70,18 @@ public abstract class DegreeModule {
     }
 
     /**
-     * Abstract function to add module to the correct list
+     * Adds a module to the correct list.
+     * @param module module to be added.
      */
-    abstract void addItem(DegreeModule module);
+    public void addItem(DegreeModule module) {
+        // Do nothing as default.
+    };
+    
+    /**
+     * Return all children modules under the module.
+     * @return null as default for Course.
+     */
+    public ArrayList<ArrayList<? extends DegreeModule>> getChildren() {
+        return null;
+    }
 }

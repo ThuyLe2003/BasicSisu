@@ -14,7 +14,6 @@ public class JsonReaderWriter{
      * @return true if the read was successful, otherwise false.
      * @throws Exception if the method e.g, cannot find the file.
      */
-    
     public Student readFromFile(String StudentNumber) throws Exception{
 
         String path = "students\\";
@@ -30,20 +29,18 @@ public class JsonReaderWriter{
         
         int gradYear = root.getAsJsonPrimitive("gradYear").getAsInt();
         
-        Student student = new Student(firstName, lastName, studentNumber, startYear, gradYear);
+        String degree = root.getAsJsonPrimitive("degree").getAsString();
+        
+        Student student = new Student(firstName, lastName, studentNumber, startYear, gradYear, degree);
         JsonArray courses = root.getAsJsonArray("courses");
         for(JsonElement course : courses){
             student.addCompletedCourse(course.getAsString());
         }
-        
-        System.out.println(student);
-        System.out.println(student.getCompletedCourses());
         return student;
         
     }
     
         public class StudentAdapter implements JsonSerializer<Student> {
-
             @Override
             public JsonElement serialize(Student student, java.lang.reflect.Type type, JsonSerializationContext jsc) {
 
@@ -65,7 +62,6 @@ public class JsonReaderWriter{
 
     
     public boolean writeToFile(Student student) throws Exception {
-
         try (FileWriter writer = new FileWriter("students\\" + student.getStudentNumber() + ".json")) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             JsonObject jsonObj = new JsonObject();
@@ -91,8 +87,4 @@ public class JsonReaderWriter{
             return true;
         } 
     }
-
-
-
-
 }

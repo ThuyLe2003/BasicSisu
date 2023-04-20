@@ -3,14 +3,14 @@ package fi.tuni.prog3.sisu.kori;
 import org.json.JSONObject;
 
 /**
- *
+ * An interface to get data of objects using data retrieved from API.
  */
 public interface Builder {
 
     /**
-     * Return the name of the object using the data retrieved from Sisu API.
+     * Returns the name of the object using the data retrieved from API.
      * @param object JSON object retrieved from API.
-     * @return name of the object
+     * @return name of the object.
      */
     public static String getObjName(JSONObject object) {
         String name = "";
@@ -29,16 +29,16 @@ public interface Builder {
     
     /**
      * Return the id or group id or code of the object using the data retrieved  
-     * from Sisu API.
+     * from API.
      * @param object JSON object retrieved from API.
      * @param type id or group id or code.
-     * @return id of the object
+     * @return id or group id or code of the object.
      */
     public static String getObjAtt(JSONObject object, String type) {
-        String id = "";
+        String result = "";
         if(object.has(type) && !object.isNull(type)) {
-            id = object.getString(type); 
+            result = object.getString(type); 
         }
-        return id;
+        return result;
     }
 }
