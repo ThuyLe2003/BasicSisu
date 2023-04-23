@@ -13,6 +13,7 @@ import java.io.IOException;
  * JavaFX Sisu
  */
 public class Sisu extends Application {
+    private static Student student;
 
     private static Scene scene;
 

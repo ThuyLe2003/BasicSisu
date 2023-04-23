@@ -46,8 +46,8 @@ public class Student {
      * @param gradYear target graduation year of the Student.
      * @param degree the degree programme of the Student.
      */
-    public Student(String firstName, String lastName, String studentNumber,
-                   int startYear, int gradYear, String degree) {
+    public Student(String firstName, String lastName, String studentNumber, 
+            int startYear, int gradYear, String degree) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
@@ -66,9 +66,9 @@ public class Student {
      * @param degree the degree programme of the Student.
      * @param completedCourses list of courses completed by the Student.
      */
-    public Student(String firstName, String lastName, String studentNumber,
-                   int startYear, int gradYear, String degree,
-                   TreeSet<String> completedCourses) {
+    public Student(String firstName, String lastName, String studentNumber, 
+            int startYear, int gradYear, String degree, 
+            TreeSet<String> completedCourses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
@@ -155,7 +155,7 @@ public class Student {
     public void addCompletedCourse(String courseId) {
         completedCourses.add(courseId);
     }
-
+    
     /**
      * Adds new course to the curriculum of the Student.
      * @param coursesId sets of ids of courses to be added.

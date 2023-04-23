@@ -24,7 +24,7 @@ public class JsonReaderWriter{
             String path = "students\\";
             JsonReader reader = new JsonReader(new FileReader(path + StudentNumber + ".json"));
             JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
-
+        
 
             String firstName = root.getAsJsonPrimitive("firstName").getAsString();
             String lastName = root.getAsJsonPrimitive("lastName").getAsString();
@@ -38,19 +38,19 @@ public class JsonReaderWriter{
 
             Student student = new Student(firstName, lastName, studentNumber, startYear, gradYear, degree);
             JsonArray courses = root.getAsJsonArray("courses");
-
+            
             for (JsonElement course : courses) {
                 student.addCompletedCourse(course.getAsString());
             }
-            return student;
+            return student; 
         }
-        catch (JsonIOException | JsonSyntaxException | FileNotFoundException e){
-            System.out.println("Couldn´t find a student with the given student number");
-            return null;
-        }
+            catch (JsonIOException | JsonSyntaxException | FileNotFoundException e){
+                System.out.println("Couldn´t find a student with the given student number");
+                return null;
+        } 
     }
 
-    /**
+        /**
      * Writes JSON to the given file.
      * @param student - The student whose info is wanted to write
      * @return The data of the student with given student number
@@ -89,8 +89,8 @@ public class JsonReaderWriter{
             return true;
         }
         catch(Exception e){
-            return false;
+            return false;   
         }
     }
 
-}
+}      
