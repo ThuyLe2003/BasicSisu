@@ -1,18 +1,24 @@
-package fi.tuni.prog3.sisu.modules;
+package fi.tuni.prog3.sisu;
 
-import java.util.ArrayList;
+import java.util.TreeSet;
 
 /**
- * A class for storing information on Students
+ * A class for storing information on Students.
  */
 public class Student {
-    private final String firstName;
-    private final String lastName;
-    private final String studentNumber;
-    private final int startYear;
+    private String firstName;
+    private String lastName;
+    private String studentNumber;
+    private int startYear;
     private int gradYear;
     private String degree;
-    private ArrayList<Course> curriculum;
+    private TreeSet<String> completedCourses = new TreeSet<>();
+
+    /**
+     * Constructs an empty Student object.
+     */
+    public Student() {
+    }
 
     /**
      * Constructs a student with given information.
@@ -22,8 +28,8 @@ public class Student {
      * @param startYear start year of the Student.
      * @param gradYear target graduation year of the Student.
      */
-    public Student(String firstName, String lastName, String studentNumber, 
-            int startYear, int gradYear) {
+    public Student(String firstName, String lastName, String studentNumber,
+                   int startYear, int gradYear) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
@@ -31,28 +37,50 @@ public class Student {
         this.gradYear = gradYear;
     }
 
-    public Student(String firstName, String lastName, String studentNumber, 
-            int startYear, String degree) {
+    /**
+     * Constructs a student with given information.
+     * @param firstName first name of the Student.
+     * @param lastName last name of the Student.
+     * @param studentNumber student number.
+     * @param startYear start year of the Student.
+     * @param gradYear target graduation year of the Student.
+     * @param degree the degree programme of the Student.
+     */
+    public Student(String firstName, String lastName, String studentNumber,
+                   int startYear, int gradYear, String degree) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
         this.startYear = startYear;
+        this.gradYear = gradYear;
         this.degree = degree;
     }
 
-    public Student(String firstName, String lastName, String studentNumber, 
-            int startYear, String degree, ArrayList<Course> curriculum) {
+    /**
+     * Constructs a student with given information.
+     * @param firstName first name of the Student.
+     * @param lastName last name of the Student.
+     * @param studentNumber student number.
+     * @param startYear start year of the Student.
+     * @param gradYear target graduation year of the Student.
+     * @param degree the degree programme of the Student.
+     * @param completedCourses list of courses completed by the Student.
+     */
+    public Student(String firstName, String lastName, String studentNumber,
+                   int startYear, int gradYear, String degree,
+                   TreeSet<String> completedCourses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
         this.startYear = startYear;
+        this.gradYear = gradYear;
         this.degree = degree;
-        this.curriculum = curriculum;
+        this.completedCourses = completedCourses;
     }
 
     /**
      * Returns the first name of the Student.
-     * @return first name of the Student
+     * @return first name of the Student.
      */
     public String getFirstName() {
         return firstName;
@@ -65,7 +93,7 @@ public class Student {
     public String getLastName() {
         return lastName;
     }
-    
+
     /**
      * Returns the student number of the Student.
      * @return student number of the Student.
@@ -76,7 +104,7 @@ public class Student {
 
     /**
      * Returns the start year of the Student.
-     * @return start year of the Student
+     * @return start year of the Student.
      */
     public int getStartYear() {
         return startYear;
@@ -84,28 +112,32 @@ public class Student {
 
     /**
      * Returns the target graduation year of the Student.
-     * @return 
+     * @return the target graduation year of the Student.
      */
     public int getGradYear() {
         return gradYear;
     }
 
     /**
-     * Returns the curriculum of the Student.
-     * @return curriculum of the Student.
+     * Returns the degree of the Student.
+     * @return the degree of the Student.
      */
-    public ArrayList<Course> getCurriculum() {
-        return curriculum;
-    }
-
     public String getDegree() {
         return degree;
     }
 
     /**
-     * Set the target graduation year of the Student.
+     * Returns the sets of ids of completed courses of the Student.
+     * @return the sets of ids of completed courses of the Student.
+     */
+    public TreeSet<String> getCompletedCourses() {
+        return completedCourses;
+    }
+
+    /**
+     * Sets the target graduation year of the Student.
      * @param year new target graduation year of the Student.
-     * @return true if the new graduation year is set, false when the new target 
+     * @return true if the new graduation year is set, false when the new target
      * year is smaller than the start year of the Student.
      */
     public boolean setGradYear(int year) {
@@ -115,57 +147,36 @@ public class Student {
         this.gradYear = year;
         return true;
     }
-    
+
     /**
-     * Add new course to the curriculum of the Student.
-     * @param course new course to be added.
-     * @return true of new course is added, false if the course is already in
-     * the curriculum.
+     * Adds new course to the curriculum of the Student.
+     * @param courseId id of the new course to be added.
      */
-    public boolean addCourse(Course course) {
-        if (curriculum.contains(course)) {
-            return false;
-        }
-        curriculum.add(course);
-        return true;
-    }
-    
-    /**
-     * Change the state of a course.
-     * @param courseName the name of the course to be changed.
-     */
-    public void changeCourseState(String courseName) {
-        for (int i = 0; i < curriculum.size(); ++i) {
-            if (curriculum.get(i).getName().equals(courseName)) {
-                curriculum.get(i).changeState();
-                return;
-            }
-        }
+    public void addCompletedCourse(String courseId) {
+        completedCourses.add(courseId);
     }
 
+    /**
+     * Adds new course to the curriculum of the Student.
+     * @param coursesId sets of ids of courses to be added.
+     */
+    public void addCompletedCourse(TreeSet<String> coursesId) {
+        completedCourses = coursesId;
+    }
+
+    /**
+     * Sets the degree programme for the Student.
+     * @param degree the degree to be set.
+     */
     public void setDegree(String degree) {
         this.degree = degree;
     }
-    
+
     /**
      * Returns true if the student has set a degree programme, otherwise false
      * @return true if the student has set a degree programme, otherwise false
      */
     public boolean isDegreeSet() {
         return degree.length() > 0;
-    }
-    
-    /**
-     * Returns completed courses.
-     * @return completed courses.
-     */
-    public ArrayList<Course> getCompletedCourses() {
-        ArrayList<Course> completedCourses = new ArrayList<>();
-        for (Course course : curriculum) {
-            if (course.isCompleted()) {
-                completedCourses.add(course);
-            }
-        }
-        return completedCourses;
     }
 }
