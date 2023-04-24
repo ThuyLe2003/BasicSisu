@@ -18,7 +18,7 @@ public class Sisu extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, Exception {
         scene = new Scene(loadFXML("startDialogue"), 640, 400);
         stage.setScene(scene);
         stage.setTitle("Sisu");
