@@ -30,13 +30,12 @@ public class JsonReaderWriter{
             String lastName = root.getAsJsonPrimitive("lastName").getAsString();
 
             String studentNumber = root.getAsJsonPrimitive("studentNumber").getAsString();
-            String degree = root.getAsJsonPrimitive("degree").getAsString();
 
             int startYear = root.getAsJsonPrimitive("startYear").getAsInt();
 
             int gradYear = root.getAsJsonPrimitive("gradYear").getAsInt();
 
-            Student student = new Student(firstName, lastName, studentNumber, startYear, gradYear, degree);
+            Student student = new Student(firstName, lastName, studentNumber, startYear, gradYear);
             JsonArray courses = root.getAsJsonArray("courses");
             
             for (JsonElement course : courses) {
@@ -59,11 +58,6 @@ public class JsonReaderWriter{
     public boolean writeToFile(Student student) throws Exception {
 
         try (FileWriter writer = new FileWriter("students\\" + student.getStudentNumber() + ".json")) {
-
-            if(student.getStudentNumber().contains(".") || student.getStudentNumber().contains("\\")){
-                throw new Exception("The student number can't contain special characters");
-            }
-
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             JsonObject jsonObj = new JsonObject();
             jsonObj.addProperty("firstName", student.getFirstName());
@@ -72,8 +66,7 @@ public class JsonReaderWriter{
             jsonObj.addProperty("startYear", student.getStartYear());
             jsonObj.addProperty("gradYear", student.getGradYear());
             jsonObj.addProperty("degree", student.getDegree());
-
-
+            
             if (!student.getCompletedCourses().isEmpty()) {
                 JsonArray courses = new JsonArray();
 
@@ -92,5 +85,4 @@ public class JsonReaderWriter{
             return false;   
         }
     }
-
 }      
