@@ -112,17 +112,10 @@ public class StartDialogueController implements Initializable {
      * @param studentNumber
      * @return 
      */
-    private boolean checkStudent(String studentNumber)
+    private boolean checkStudent(String studentNumber) throws Exception
     {
         JsonReaderWriter checker = new JsonReaderWriter();
         Student test = checker.readFromFile(studentNumber);
-        if (test == null)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return test != null;
     }
 }   
