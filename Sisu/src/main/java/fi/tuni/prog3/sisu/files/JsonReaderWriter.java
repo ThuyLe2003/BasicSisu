@@ -6,46 +6,55 @@ import fi.tuni.prog3.sisu.Student;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.lang.ProcessBuilder.Redirect.Type;
+
 /**
  * A class for writing and reading student -data from and to json -files.
  */
-public class JsonReaderWriter{
+public class JsonReaderWriter {
     /**
      * Reads JSON from the given file.
      * @param StudentNumber - The student number of the students whose info is wanted
      * @return The data of the student with given student number
      * @throws Exception if the method e.g, cannot find the file with the given student number.
      */
-
     public Student readFromFile(String StudentNumber) throws Exception{
 
         try {
             String path = "students\\";
-            JsonReader reader = new JsonReader(new FileReader(path + StudentNumber + ".json"));
+            JsonReader reader = new JsonReader(new FileReader(path + 
+                                                    StudentNumber + ".json"));
             JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
         
 
-            String firstName = root.getAsJsonPrimitive("firstName").getAsString();
-            String lastName = root.getAsJsonPrimitive("lastName").getAsString();
-
-            String studentNumber = root.getAsJsonPrimitive("studentNumber").getAsString();
-            String degree = root.getAsJsonPrimitive("degree").getAsString();
-
-            int startYear = root.getAsJsonPrimitive("startYear").getAsInt();
-
-            int gradYear = root.getAsJsonPrimitive("gradYear").getAsInt();
-
-            Student student = new Student(firstName, lastName, studentNumber, startYear, gradYear, degree);
-            JsonArray courses = root.getAsJsonArray("courses");
+            String firstName = root.getAsJsonPrimitive("firstName")
+                                    .getAsString();
             
+            String lastName = root.getAsJsonPrimitive("lastName")
+                                    .getAsString();
+
+            String studentNumber = root.getAsJsonPrimitive("studentNumber")
+                                    .getAsString();
+            
+            String degree = root.getAsJsonPrimitive("degree")
+                                    .getAsString();
+
+            int startYear = root.getAsJsonPrimitive("startYear")
+                                    .getAsInt();
+
+            int gradYear = root.getAsJsonPrimitive("gradYear")
+                                    .getAsInt();
+
+            Student student = new Student(firstName, lastName, studentNumber, 
+                                            startYear, gradYear, degree);
+            
+            JsonArray courses = root.getAsJsonArray("courses");
             for (JsonElement course : courses) {
                 student.addCompletedCourse(course.getAsString());
             }
             return student; 
         }
-            catch (JsonIOException | JsonSyntaxException | FileNotFoundException e){
-                System.out.println("Couldn´t find a student with the given student number");
+            catch (JsonIOException | JsonSyntaxException | 
+                    FileNotFoundException e){
                 return null;
         } 
     }
@@ -58,20 +67,29 @@ public class JsonReaderWriter{
      */
     public boolean writeToFile(Student student) throws Exception {
 
-        try (FileWriter writer = new FileWriter("students\\" + student.getStudentNumber() + ".json")) {
+        try (FileWriter writer = new FileWriter("students\\" +
+                                student.getStudentNumber() + ".json")) {
 
-            if(student.getStudentNumber().contains(".") || student.getStudentNumber().contains("\\")){
-                throw new Exception("The student number can't contain special characters");
+            if(student.getStudentNumber().contains(".") ||
+                    student.getStudentNumber().contains("\\")){
+                throw new Exception("The student number can't contain "
+                        + "special characters");
             }
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             JsonObject jsonObj = new JsonObject();
-            jsonObj.addProperty("firstName", student.getFirstName());
-            jsonObj.addProperty("lastName", student.getLastName());
-            jsonObj.addProperty("studentNumber", student.getStudentNumber());
-            jsonObj.addProperty("startYear", student.getStartYear());
-            jsonObj.addProperty("gradYear", student.getGradYear());
-            jsonObj.addProperty("degree", student.getDegree());
+            jsonObj.addProperty("firstName", 
+                            student.getFirstName());
+            jsonObj.addProperty("lastName", 
+                            student.getLastName());
+            jsonObj.addProperty("studentNumber", 
+                            student.getStudentNumber());
+            jsonObj.addProperty("startYear", 
+                            student.getStartYear());
+            jsonObj.addProperty("gradYear", 
+                            student.getGradYear());
+            jsonObj.addProperty("degree", 
+                            student.getDegree());
 
 
             if (!student.getCompletedCourses().isEmpty()) {
@@ -88,7 +106,7 @@ public class JsonReaderWriter{
             gson.toJson(jsonObj, writer);
             return true;
         }
-        catch(Exception e){
+        catch(Exception e) {
             return false;   
         }
     }

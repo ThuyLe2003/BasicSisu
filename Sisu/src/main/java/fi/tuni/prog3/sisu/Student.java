@@ -28,8 +28,8 @@ public class Student {
      * @param startYear start year of the Student.
      * @param gradYear target graduation year of the Student.
      */
-    public Student(String firstName, String lastName, String studentNumber,
-                   int startYear, int gradYear) {
+    public Student(String firstName, String lastName, String studentNumber, 
+            int startYear, int gradYear) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentNumber = studentNumber;
@@ -93,7 +93,7 @@ public class Student {
     public String getLastName() {
         return lastName;
     }
-
+    
     /**
      * Returns the student number of the Student.
      * @return student number of the Student.
@@ -133,11 +133,11 @@ public class Student {
     public TreeSet<String> getCompletedCourses() {
         return completedCourses;
     }
-
+    
     /**
      * Sets the target graduation year of the Student.
      * @param year new target graduation year of the Student.
-     * @return true if the new graduation year is set, false when the new target
+     * @return true if the new graduation year is set, false when the new target 
      * year is smaller than the start year of the Student.
      */
     public boolean setGradYear(int year) {
@@ -147,7 +147,7 @@ public class Student {
         this.gradYear = year;
         return true;
     }
-
+    
     /**
      * Adds new course to the curriculum of the Student.
      * @param courseId id of the new course to be added.
@@ -171,7 +171,7 @@ public class Student {
     public void setDegree(String degree) {
         this.degree = degree;
     }
-
+    
     /**
      * Returns true if the student has set a degree programme, otherwise false
      * @return true if the student has set a degree programme, otherwise false

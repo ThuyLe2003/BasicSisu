@@ -14,9 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+
 /**
  * FXML Controller class
- *
  */
 public class StartDialogueController implements Initializable {
 
@@ -47,6 +47,8 @@ public class StartDialogueController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,11 +70,10 @@ public class StartDialogueController implements Initializable {
         int startYear = Integer.parseInt(startYearField.getText());
         int gradYear = Integer.parseInt(gradYearField.getText());
         String studentNumber = newStudentNumberField.getText();
-                if ("".equals(firstNameField.getText()) || lastNameField.getText() == null
-                || startYearField.getText() == null || gradYearField.getText()
-                == null || newStudentNumberField.getText() == null) {
+        if ("".equals(firstNameField.getText()) || lastNameField.getText() == null
+            || startYearField.getText() == null || gradYearField.getText()
+            == null || newStudentNumberField.getText() == null) {
             signUpErrorLabel.setText("Enter all information!");
-            
         }
         Student newStudent = new Student(firstName, lastName, studentNumber,
                 startYear, gradYear);
