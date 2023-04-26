@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
 
 image:
   name: "maven:3.6.3-openjdk-11"
@@ -11,4 +12,12 @@ build:
   script:
     - cd Sisu/
     - mvn compile
+
+test:
+    stage: test
+    tags:
+    - compcs140
+  script:
+    - cd Sisu/
+    - mvn test
     
