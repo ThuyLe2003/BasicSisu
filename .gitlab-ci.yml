@@ -14,8 +14,8 @@ build:
     - mvn compile
 
 test:
-    stage: test
-    tags:
+  stage: test
+  tags:
     - compcs140
   script:
     - cd Sisu/
