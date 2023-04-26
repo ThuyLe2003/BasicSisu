@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="742.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.sisu.SelectionViewController">
+
+  <tabs>
+    <Tab fx:id="studentInfoTab" text="Student information">
+         <content>
+            <HBox prefHeight="374.0" prefWidth="742.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ListView fx:id="chooseDegreeListView" minWidth="350.0" prefHeight="371.0" prefWidth="102.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="374.0" prefWidth="218.0" spacing="5.0">
+                     <children>
+                        <Label text="First name:" />
+                        <Label text="Last name:" />
+                        <Label text="Student number:" />
+                        <Label text="Start year:" />
+                        <Label text="Expected graduation year: " />
+                        <Label text="Degree programme: " />
+                        <Label text="Credits/max credits:" />
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="374.0" prefWidth="305.0" spacing="5.0">
+                     <children>
+                        <Label fx:id="firstNameLabel" />
+                        <Label fx:id="lastNameLabel" />
+                        <Label fx:id="studentNumberLabel" />
+                        <Label fx:id="startYearLabel" />
+                        <Label fx:id="gradYearLabel" />
+                        <Label fx:id="degreeProgLabel" />
+                        <Label fx:id="creditsLabel" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="332.0" spacing="15.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Save" />
+                              <Button mnemonicParsing="false" text="Log out" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content></Tab>
+    <Tab text="Curriculum" />
+  </tabs>
+</TabPane>
