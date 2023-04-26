@@ -12,7 +12,7 @@ public class CourseTest {
      * Test of constructor and getters.
      */
     @Test
-    public void testGetters() {
+    public void testConstructorAndGetters() {
         System.out.println("constructorAndGetters");
         Course instance = new Course("Differential and Integral Calculus",
                                      "otm-1dc4fc64-39fd-4575-aef6-280199870f71",

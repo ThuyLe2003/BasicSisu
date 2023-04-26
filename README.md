@@ -5,21 +5,21 @@ Welcome to SISU, a program for handling degree data to get an easy way to keep t
 ## Group information: Member and workshare
 
 **Member 1:** Thuy Le, thuy.t.le@tuni.fi, 150533634, responsible for:
-    1. Creating classes `DegreeProgramme`, `GroupingModule`, `StudyModule`, and `Course` (using the abstract class `DegreeModule`) to handle degree structures.
-    2. Creating class `Student` to handle information of users in role of a student.
-    3. Fetching data from Kori API and create degree modules or courses using fetched data by building class `Data` and interface `Builder`.
-    4. Updating `README.md`and writing the documentation for the project.
+    1. Implementing classes `DegreeProgramme`, `GroupingModule`, `StudyModule`, and `Course` (using the abstract class `DegreeModule`) to handle degree structures. Implementing class `Student` to handle information of users in role of a student.
+    2. Implementing unit tests for `fi.tuni.prog3.sisu.modules` package.
+    3. Fetching data from Kori API and getting degree modules or courses using fetched data by building class `Data` and interface `Builder`.
+    4. Updating `README.md` and writing the documentation for the project.
 
-**Member 2:** Elsa Seppänen, , , responsible for:
+**Member 2:** Elsa Seppänen, elsa.seppanen@tuni.fi, H299913, responsible for:
     1. Setting up the first dialogue interface of the application.
-    2. Setting up the interface for the application after logging in.
-    3. Handling the flow of the application from the interface.
+    2. Setting up the student settings view for the application after logging in.
+    3. Working with Eero Jormalainen in implementing unit tests for the interface.
 
-**Member 3:** Eero Jormalainen, , , responsible for:
+**Member 3:** Eero Jormalainen, eero.jormalainen@tuni.fi, H292260, responsible for:
     1. Reading and writing to a file with class `JsonReaderWriter` to save or read the progress of each student.
-    2. Implementing unit tests for all the classes.
-    3. Implementing unit tests for the graphical user interface.
-
+    2. Implementing unit tests for `JsonReaderWriter` class.
+    3. Setting up the curriculum view for the application after logging in.
+    4. Working with Elsa Seppänen in implementing unit tests for the interface.
 
 ## Description
 
@@ -34,7 +34,7 @@ Sisu is a program for planning and keeping track of university studies. The prog
 
 ## Project structure
 
-The **UML class diagram** of our application: `./class-diagram.png`. Classes are also documented using javadocs. The documentation files are available in `./target/site/apidocs`.
+The **UML class diagram** of our application: `./class-diagram.jpg`. Classes are also documented using javadocs. The documentation files are available in `./target/site/apidocs`.
 
 ## Tests
-
+We used our self-defined tests to test all the functions of the key classes `Student` and classes in package `fi.tuni.prog3.sisu.modules`.

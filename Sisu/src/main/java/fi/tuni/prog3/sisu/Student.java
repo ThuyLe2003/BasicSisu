@@ -11,7 +11,7 @@ public class Student {
     private String studentNumber;
     private int startYear;
     private int gradYear;
-    private String degree;
+    private String degree = "";
     private TreeSet<String> completedCourses = new TreeSet<>();
 
     /**
@@ -141,7 +141,7 @@ public class Student {
      * year is smaller than the start year of the Student.
      */
     public boolean setGradYear(int year) {
-        if (startYear < year) {
+        if (year <= startYear) {
             return false;
         }
         this.gradYear = year;
@@ -158,10 +158,10 @@ public class Student {
     
     /**
      * Adds new course to the curriculum of the Student.
-     * @param coursesId sets of ids of courses to be added.
+     * @param courses sets of ids of courses to be added.
      */
-    public void addCompletedCourse(TreeSet<String> coursesId) {
-        completedCourses = coursesId;
+    public void addCompletedCourse(TreeSet<String> courses) {
+        completedCourses = courses;
     }
 
     /**

@@ -13,7 +13,7 @@ public class DegreeProgrammeTest {
      * Test of constructor and getters.
      */
     @Test
-    public void testGetters() {
+    public void testConstructorAndGetters() {
         System.out.println("constructorAndGetters");
         
         DegreeProgramme instance = new DegreeProgramme(

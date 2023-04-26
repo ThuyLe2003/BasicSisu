@@ -13,7 +13,7 @@ public class GroupingModuleTest {
      * Test of constructor and getters.
      */
     @Test
-    public void testGetters() {
+    public void testConstructorAndGetters() {
         System.out.println("constructorAndGetters");
         
         GroupingModule instance = new GroupingModule(

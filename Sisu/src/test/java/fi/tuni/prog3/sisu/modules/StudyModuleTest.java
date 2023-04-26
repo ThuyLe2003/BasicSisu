@@ -14,7 +14,7 @@ public class StudyModuleTest {
      * Test of constructor and getters.
      */
     @Test
-    public void testGetters() {
+    public void testConstructorAndGetters() {
         System.out.println("constructorAndGetters");
         
         StudyModule instance = new StudyModule(
