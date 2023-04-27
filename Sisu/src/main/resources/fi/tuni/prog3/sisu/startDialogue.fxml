@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="startHBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.sisu.StartDialogueController">
+<HBox fx:id="startHBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.sisu.StartDialogueController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="190.0" spacing="15.0">
          <children>
@@ -25,14 +25,14 @@
             <Button fx:id="signUpButton" mnemonicParsing="false" text="Sign up" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="190.0" spacing="8.0">
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="204.0" spacing="8.0">
          <children>
             <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="141.0" />
             <TextField fx:id="lastNameField" />
             <TextField fx:id="startYearField" />
             <TextField fx:id="gradYearField" />
             <TextField fx:id="newStudentNumberField" />
-            <Label fx:id="signUpErrorLabel" prefHeight="18.0" prefWidth="115.0" />
+            <Label fx:id="signUpErrorLabel" prefHeight="34.0" prefWidth="197.0" />
          </children>
          <padding>
             <Insets right="8.0" top="35.0" />

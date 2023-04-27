@@ -3,21 +3,27 @@ package fi.tuni.prog3.sisu;
 
 import fi.tuni.prog3.sisu.files.JsonReaderWriter;
 import fi.tuni.prog3.sisu.kori.Data;
-import fi.tuni.prog3.sisu.modules.Course;
 import fi.tuni.prog3.sisu.modules.DegreeProgramme;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -74,9 +80,16 @@ public class SelectionViewController implements Initializable {
     {
         JsonReaderWriter writer = new JsonReaderWriter();
         try {
-            writer.writeToFile(user);
-            Sisu.setRoot("startDialogue");
-        } catch (Exception ex) {
+            Stage primaryStage = (Stage) signUpButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("selectionView.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            SelectionViewController newSceneController = loader.getController();
+            newSceneController.initData(newStudent);
+            primaryStage.setScene(newScene);
+            primaryStage.show();
+        }
+        catch (IOException ex) {
         }
         
     }
@@ -103,6 +116,7 @@ public class SelectionViewController implements Initializable {
         
     private void chooseDegree() {
         user.setDegree(currentDegree);
+        System.out.println(user.getDegree());
     }
     
     private void showCredits() {

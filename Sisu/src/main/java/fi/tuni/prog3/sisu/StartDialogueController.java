@@ -49,6 +49,12 @@ public class StartDialogueController implements Initializable {
     
     private Student newStudent;
     
+    private String firstName;
+    private String lastName;
+    private int startYear;
+    private int gradYear;
+    private String studentNumber;
+    
     /**
      * Initializes the controller class.
      */
@@ -60,14 +66,15 @@ public class StartDialogueController implements Initializable {
         
         signUpButton.setOnAction(this::handleSignUpButtonAction);        
         logInButton.setOnAction(this::handleLogInButtonAction);                       
-        }
+    }
     
     /**
      * Handles the event, when sign up button is pressed.
      * Checks if info is correct and creates a new student.
      * @param event 
      */
-    private void handleSignUpButtonAction(ActionEvent event) {    
+    private void handleSignUpButtonAction(ActionEvent event) {
+        
         if ("".equals(firstNameField.getText().trim()) ||
                 "".equals(lastNameField.getText().trim()) ||
                 "".equals(startYearField.getText().trim()) ||
@@ -77,31 +84,30 @@ public class StartDialogueController implements Initializable {
             return;            
         }
         
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        int startYear = Integer.parseInt(startYearField.getText());
-        int gradYear = Integer.parseInt(gradYearField.getText());
-        String studentNumber = newStudentNumberField.getText();
-        
+        firstName = firstNameField.getText();
+        lastName = lastNameField.getText();
         try {
-            if (checkStudent(studentNumber))
-            {
-                signUpErrorLabel.setText("Student number already exists!");
+            startYear = Integer.parseInt(startYearField.getText());
+            gradYear = Integer.parseInt(gradYearField.getText());
+            studentNumber = newStudentNumberField.getText();
+            if (startYear > gradYear) {
+                signUpErrorLabel.setText("Grad year is before start year!");
+                return;
             }
         }
         
-        catch (Exception ex) {
+        catch (NumberFormatException e) {
+            signUpErrorLabel.setText("Years have to be numbers!");           
         }
         
-        Student student = new Student(firstName, lastName, studentNumber,
-                startYear, gradYear);
-        
-        try {
-            newStudent = student;
+        if (checkStudent(studentNumber)) {
+            signUpErrorLabel.setText("Student number is taken!");
+        }
+        else {
+            newStudent = new Student(firstName, lastName, studentNumber,
+                startYear, gradYear); 
             moveStudentData();
-        }
-        catch (IOException ex) {
-        }
+        }                            
     }
     
     /**
@@ -110,24 +116,17 @@ public class StartDialogueController implements Initializable {
      */
     private void handleLogInButtonAction(ActionEvent event){
         
-        String studentNumber = studentNumberField.getText();
+        studentNumber = studentNumberField.getText();
         if ("".equals(studentNumber.trim()))
         {
             logInErrorLabel.setText("Enter a student number!");
         }
-        
-        else try {
-            if(checkStudent(studentNumber))
-            {               
-                moveStudentData();
-            }
-            else
-            {               
-                logInErrorLabel.setText("Wrong student number!");
-            }
+        if (checkStudent(studentNumber)) {
+            moveStudentData();
         }
-        catch (Exception ex) {
-        }
+        else {
+            logInErrorLabel.setText("Wrong student number!"); 
+        }        
     }
     
     /**
@@ -135,33 +134,35 @@ public class StartDialogueController implements Initializable {
      * @param studentNumber
      * @return 
      */
-    private boolean checkStudent(String studentNumber) throws Exception {
+    private boolean checkStudent(String studentNumber) {
         JsonReaderWriter checker = new JsonReaderWriter();
-        Student test = checker.readFromFile(studentNumber);
-        if (test != null)
-        {
+        Student test = null;
+        try {
+            test = checker.readFromFile(studentNumber);
             newStudent = test;
+        } 
+        catch (Exception ex) {
         }
         return test != null;
     }
     
     /**
-     * 
-     * @throws IOException 
+     * Moves a student object to SelectionViewController class when signed up
+     * or logged in.
      */
-    public void moveStudentData() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("selectionView.fxml"));
-
-        Parent root = loader.load();
-        Scene selection = new Scene(root);
-        
-        SelectionViewController controller = loader.getController();
-        controller.initData(newStudent);
-        
-        Stage primaryStage = (Stage) logInButton.getScene().getWindow();
-        primaryStage.setScene(selection);
-        primaryStage.show();
-    }
-         
+    public void moveStudentData() {
+    
+        try {
+            Stage primaryStage = (Stage) signUpButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("selectionView.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            SelectionViewController newSceneController = loader.getController();
+            newSceneController.initData(newStudent);
+            primaryStage.setScene(newScene);
+            primaryStage.show();
+        }
+        catch (IOException ex) {
+        }                   
+    }         
 }   
