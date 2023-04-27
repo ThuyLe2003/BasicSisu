@@ -4,24 +4,30 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="742.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.sisu.SelectionViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="859.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.sisu.SelectionViewController">
 
   <tabs>
     <Tab fx:id="studentInfoTab" text="Student information">
          <content>
             <HBox prefHeight="374.0" prefWidth="742.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="374.0" prefWidth="392.0">
                      <children>
-                        <ListView fx:id="chooseDegreeListView" minWidth="350.0" prefHeight="371.0" prefWidth="102.0" />
+                        <ListView fx:id="chooseDegreeListView" minWidth="350.0" prefHeight="371.0" prefWidth="418.0" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="374.0" prefWidth="218.0" spacing="5.0">
+                  <VBox alignment="TOP_RIGHT" prefHeight="374.0" prefWidth="174.0" spacing="5.0">
                      <children>
                         <Label text="First name:" />
                         <Label text="Last name:" />
@@ -46,7 +52,7 @@
                         <Label fx:id="creditsLabel" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="332.0" spacing="15.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Save" />
+                              <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
                               <Button fx:id="logOutButton" mnemonicParsing="false" text="Log out" />
                            </children>
                         </HBox>
@@ -55,6 +61,52 @@
                </children>
             </HBox>
          </content></Tab>
-    <Tab text="Curriculum" />
+    <Tab text="Curriculum">
+         <content>
+            <AnchorPane prefHeight="374.0" prefWidth="777.0">
+               <children>
+                  <TreeView fx:id="curriculum" onMouseClicked="#selectItem" prefHeight="370.0" prefWidth="422.0" />
+                  <GridPane layoutX="731.0" layoutY="19.0" prefHeight="336.0" prefWidth="113.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="0.0" prefWidth="0.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="79.0" minHeight="0.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#updateCompletions" prefHeight="57.0" prefWidth="111.0" text="Add completion" GridPane.rowIndex="2" />
+                        <Label prefHeight="98.0" prefWidth="113.0" text="Press &quot;Add completion&quot; once you've selected a completed course" wrapText="true" />
+                        <Button mnemonicParsing="false" onMouseClicked="#saveProgress" prefHeight="32.0" prefWidth="111.0" text="Save progress" GridPane.rowIndex="3" />
+                        <Label prefHeight="103.0" prefWidth="113.0" text="Remember to save your progress. In case of adding a wrong course, reload the program without saving." wrapText="true" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="431.0" layoutY="5.0" prefHeight="364.0" prefWidth="286.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="41.60001220703125" minHeight="0.0" prefHeight="16.39997177124023" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="347.2000282287598" minHeight="10.0" prefHeight="347.2000282287598" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Course completion methods:" GridPane.hgrow="SOMETIMES" GridPane.valignment="TOP" GridPane.vgrow="SOMETIMES" />
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="759.0" prefWidth="270.0">
+                                 <children>
+                                    <Label fx:id="contentLabel" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content></Tab>
   </tabs>
 </TabPane>

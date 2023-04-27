@@ -6,6 +6,7 @@ import fi.tuni.prog3.sisu.modules.DegreeProgramme;
 import fi.tuni.prog3.sisu.modules.GroupingModule;
 import fi.tuni.prog3.sisu.modules.StudyModule;
 import static fi.tuni.prog3.sisu.kori.Builder.getObjAtt;
+import static fi.tuni.prog3.sisu.kori.Builder.getObjMethods;
 import static fi.tuni.prog3.sisu.kori.Builder.getObjName;
 
 import java.io.BufferedReader;
@@ -269,8 +270,9 @@ public class Data implements Builder {
             int minCredits = courseObj
                     .getJSONObject("credits")
                     .getInt("min");
-            
+            String methods = getObjMethods(courseObj);
             Course course = new Course(name, id, groupId, minCredits, code);
+            course.setMethods(methods);
             module.addItem(course);
         }
     }

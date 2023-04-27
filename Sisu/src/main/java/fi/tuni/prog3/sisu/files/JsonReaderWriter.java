@@ -43,9 +43,12 @@ public class JsonReaderWriter {
             
             JsonArray courses = root.getAsJsonArray("courses");
             
-            for (JsonElement course : courses) {
-                student.addCompletedCourse(course.getAsString());
+            if (courses != null) {
+                for (JsonElement course : courses) {
+                    student.addCompletedCourse(course.getAsString());
+                }
             }
+            
             return student; 
         }
             catch (JsonIOException | JsonSyntaxException 

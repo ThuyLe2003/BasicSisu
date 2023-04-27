@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 /**
- * JavaFX Sisu
+ * JavaFX Sisu.
  */
 public class Sisu extends Application {
 
@@ -33,6 +33,10 @@ public class Sisu extends Application {
         return fxmlLoader.load();
     }
 
+    /**
+     * Launch program.
+     * @param args not used.
+     */
     public static void main(String[] args) {
         launch();
     }

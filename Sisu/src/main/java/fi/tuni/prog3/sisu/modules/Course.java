@@ -5,6 +5,7 @@ package fi.tuni.prog3.sisu.modules;
  */
 public class Course extends DegreeModule {
     private String code;
+    private String methods;
     
     /**
      * Constructs a course with given information and the default incomplete 
@@ -39,4 +40,20 @@ public class Course extends DegreeModule {
     public void addItem(DegreeModule module) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
+
+    /**
+     * Sets the completion methods of the course.
+     * @param methods completion methods of the course.
+     */
+    public void setMethods(String methods) {
+        this.methods = methods;
+    }
+
+    /**
+     * Gets the completion methods of the course.
+     * @return completion methods of the course.
+     */
+    public String getMethods() {
+        return methods;
+    }   
 }

@@ -16,9 +16,9 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 /**
- * FXML Controller class
- *
+ * FXML Controller class for first dialogue view.
  */
 public class StartDialogueController implements Initializable {
 
@@ -130,20 +130,23 @@ public class StartDialogueController implements Initializable {
     }
     
     /**
-     * Checks if the the student number is used by a student
-     * @param studentNumber
-     * @return 
+     * Checks if the the student number is used by a student.
+     * @param studentNumber student number of the user.
+     * @return true if student number has been registered, false otherwise.
      */
     private boolean checkStudent(String studentNumber) {
         JsonReaderWriter checker = new JsonReaderWriter();
-        Student test = null;
         try {
-            test = checker.readFromFile(studentNumber);
+            Student test = checker.readFromFile(studentNumber);
+            if (test == null) {
+                return false;
+            }
             newStudent = test;
+            return true;
         } 
         catch (Exception ex) {
         }
-        return test != null;
+        return false;
     }
     
     /**
