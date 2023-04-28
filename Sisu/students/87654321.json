@@ -1,0 +1,12 @@
+{
+  "firstName": "Test",
+  "lastName": "Tester",
+  "studentNumber": "87654321",
+  "startYear": 2020,
+  "gradYear": 2024,
+  "degree": "Masters in History",
+  "courses": [
+    "History",
+    "Physics"
+  ]
+}

@@ -53,8 +53,7 @@ public class JsonReaderWriter {
         }
             catch (JsonIOException | JsonSyntaxException 
                     | FileNotFoundException e) {
-                System.out.println("Couldn´t find a student with the given "
-                        + "student number");
+                
                 return null;
         } 
     }
