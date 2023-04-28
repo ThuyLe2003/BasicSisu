@@ -27,29 +27,70 @@
                         <ListView fx:id="chooseDegreeListView" minWidth="350.0" prefHeight="371.0" prefWidth="418.0" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="374.0" prefWidth="174.0" spacing="5.0">
+                  <VBox alignment="TOP_RIGHT" prefHeight="374.0" prefWidth="467.0" spacing="5.0">
                      <children>
-                        <Label text="First name:" />
-                        <Label text="Last name:" />
-                        <Label text="Student number:" />
-                        <Label text="Start year:" />
-                        <Label text="Expected graduation year: " />
-                        <Label text="Degree programme: " />
-                        <Label text="Credits/max credits:" />
-                     </children>
-                     <padding>
-                        <Insets right="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox prefHeight="374.0" prefWidth="305.0" spacing="5.0">
-                     <children>
-                        <Label fx:id="firstNameLabel" />
-                        <Label fx:id="lastNameLabel" />
-                        <Label fx:id="studentNumberLabel" />
-                        <Label fx:id="startYearLabel" />
-                        <Label fx:id="gradYearLabel" />
-                        <Label fx:id="degreeProgLabel" />
-                        <Label fx:id="creditsLabel" />
+                        <GridPane prefHeight="255.0" prefWidth="462.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.20001220703125" minWidth="10.0" prefWidth="164.0000244140625" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.5999755859375" minWidth="10.0" prefWidth="298.39997558593745" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="First name:">
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Student number:" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Last name:" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Start year:" GridPane.rowIndex="3">
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Expected graduation year: " GridPane.rowIndex="4">
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Degree programme: " GridPane.rowIndex="5">
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Credits/max credits:" GridPane.rowIndex="6">
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="firstNameLabel" GridPane.columnIndex="1" />
+                              <Label fx:id="lastNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="studentNumberLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="startYearLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="gradYearLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="degreeProgLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="creditsLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                           </children>
+                        </GridPane>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="332.0" spacing="15.0">
                            <children>
                               <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
@@ -57,6 +98,9 @@
                            </children>
                         </HBox>
                      </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
                   </VBox>
                </children>
             </HBox>

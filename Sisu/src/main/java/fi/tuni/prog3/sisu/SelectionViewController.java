@@ -74,7 +74,8 @@ public class SelectionViewController implements Initializable {
     
     private Student user = new Student();
     
-    private String currentDegree; 
+    private String currentDegree;
+    private String degreeToChange;
     
     /**
      * Initialize the view.
@@ -87,6 +88,7 @@ public class SelectionViewController implements Initializable {
         completedCourses = user.getCompletedCourses();
         logOutButton.setOnAction(this::handleLogOutButtonAction);
         saveButton.setOnAction(this::handleSaveButtonAction);
+        degreeProgLabel.setWrapText(true);
     }
     
     /**
@@ -117,17 +119,17 @@ public class SelectionViewController implements Initializable {
      * @param e 
      */
     private void handleSaveButtonAction(ActionEvent e) {
-        if (!currentDegree.equals(degreeProgLabel.getText()))
+        if (!degreeToChange.equals(degreeProgLabel.getText()))
         {
             for (Map.Entry<String, DegreeProgramme> entry : degrees.entrySet()) {
-                if (entry.getValue().getName().equals(currentDegree)) {
-                    degreeProgLabel.setText(currentDegree);
+                if (entry.getValue().getName().equals(degreeToChange)) {
+                    degreeProgLabel.setText(degreeToChange);
                     currentDegree = entry.getValue().getId();
                     completedCourses = new TreeSet<>();
                     user.addCompletedCourse(completedCourses);
                     totalCredits = 0;
                     chooseDegree();
-                    creditsLabel.setText("");
+                    showCredits();
                     return;
                 }
             }
@@ -151,7 +153,7 @@ public class SelectionViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t,
                     String t1) {
-                currentDegree = chooseDegreeListView.getSelectionModel()
+                degreeToChange = chooseDegreeListView.getSelectionModel()
                         .getSelectedItem();
             }
         }); 
@@ -187,6 +189,7 @@ public class SelectionViewController implements Initializable {
         TreeItem item = (TreeItem) curriculum.getSelectionModel().getSelectedItem();
 
         if(!(item.getValue() instanceof Course)) {
+            selectedCourse = null;
             return;
         }
         Course course = (Course) item.getValue();
@@ -242,6 +245,8 @@ public class SelectionViewController implements Initializable {
                 completedCourses.add(selectedCourse.getId());
                 totalCredits += selectedCourse.getMinCredits();
             }          
+        } else {
+            return;
         }
         
         for(String id : completedCourses){
@@ -282,6 +287,7 @@ public class SelectionViewController implements Initializable {
         if (user.isDegreeSet()) {
             completedCourses = user.getCompletedCourses();
             currentDegree = user.getDegree();
+            degreeToChange = currentDegree;
             chooseDegree();
             showCredits();
         }
