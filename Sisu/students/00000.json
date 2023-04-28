@@ -4,5 +4,9 @@
   "studentNumber": "00000",
   "startYear": 2000,
   "gradYear": 2003,
-  "degree": "otm-67289c6a-ad0d-4e2b-8b35-252db0365cb8"
+  "degree": "otm-67289c6a-ad0d-4e2b-8b35-252db0365cb8",
+  "courses": [
+    "otm-12ec5b5a-2e68-4877-8f06-4031f5f86ec5",
+    "otm-e33d3534-787d-4f28-98f5-ff1c12c422f8"
+  ]
 }
