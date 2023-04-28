@@ -5,10 +5,6 @@
 package fi.tuni.prog3.sisu.files;
 
 import fi.tuni.prog3.sisu.Student;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,7 +31,7 @@ public class JsonReaderWriterTest {
         JsonReaderWriter instance = new JsonReaderWriter();
         Student testStudent = new Student("Test", "Tester", "12345", 2000, 2005);
         testStudent.setDegree("degree"); testStudent.addCompletedCourse("TestCourse");
-        //instance.writeToFile(testStudent);
+        instance.writeToFile(testStudent);
 
         String StudentNumber = "ThisNumberDoesntExist";
 
